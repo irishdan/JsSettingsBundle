@@ -1,0 +1,5 @@
+services:
+  js_settings.settings:
+      class: JsSettingsBundle\Utils\Settings
+      arguments: [ %js_settings% ]
+      # How can i make the above parameter optional?
