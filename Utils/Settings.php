@@ -11,9 +11,19 @@ namespace JsSettingsBundle\Utils;
 
 class Settings
 {
+    /**
+     * @var array
+     */
     private $settings = [];
+    /**
+     * @var string
+     */
     private $name = 'Symfony';
 
+    /**
+     * Settings constructor.
+     * @param array $defaults
+     */
     public function __construct(array $defaults)
     {
         if (!empty($defaults)) {
@@ -30,24 +40,51 @@ class Settings
 
     }
 
+    /**
+     * @param $key
+     * @param $value
+     */
     public function addSettings($key, $value) {
         $this->settings[$key] = $value;
     }
 
+    /**
+     * @return array
+     */
     public function getSettings() {
+        return $this->settings;
+    }
+
+    /**
+     * @return string
+     */
+    public function getJs() {
         $name = $this->name;
-        $settings = json_encode($this->settings);
+        $settings = json_encode($this->getSettings());
         $js = 'var ' . $name . ' = {};' . $name . '.settings = ' . $settings;
 
         return $js;
     }
 
-    public function renderSettings($script_tags = TRUE) {
-        $js = $this->getSettings();
+    /**
+     * @param bool $script_tags
+     * @return string
+     */
+    public function renderJs($script_tags = TRUE) {
+        $js = $this->getJs();
         if ($script_tags) {
             $js = '<script>' . $js . '</script>';
         }
 
         return $js;
     }
+
+    /**
+     * @param $key
+     */
+    public function removeSetting($key) {
+        if (!empty($this->settings[$key])) {
+            unset($this->settings[$key]);
+        }
+     }
 }

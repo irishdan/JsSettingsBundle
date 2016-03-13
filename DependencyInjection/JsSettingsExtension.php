@@ -11,8 +11,16 @@ namespace JsSettingsBundle\DependencyInjection;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 
+/**
+ * Class JsSettingsExtension
+ * @package JsSettingsBundle\DependencyInjection
+ */
 class JsSettingsExtension extends Extension
 {
+    /**
+     * @param array $configs
+     * @param ContainerBuilder $container
+     */
     public function load(array $configs, ContainerBuilder $container)
     {
         $configuration = new Configuration();
