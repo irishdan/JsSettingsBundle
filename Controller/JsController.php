@@ -15,7 +15,7 @@ class JsController extends Controller
      */
     public function settingsAction()
     {
-        $settings = $this->get('js_settings.settings')->getSettings();
+        $settings = $this->get('js_settings.settings')->getJs();
         return $this->render('@JsSettings/settings.script.html.twig',
             array('settings' => $settings)
         );

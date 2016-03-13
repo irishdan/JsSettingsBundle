@@ -9,6 +9,10 @@
 namespace JsSettingsBundle\Utils;
 
 
+/**
+ * Class Settings
+ * @package JsSettingsBundle\Utils
+ */
 class Settings
 {
     /**
@@ -28,7 +32,7 @@ class Settings
     {
         if (!empty($defaults)) {
             if (!empty($defaults['object_name'])) {
-                $this->name = $defaults['object_name'];
+                $this->setName($defaults['object_name']);
             }
 
             if (!empty($defaults['defaults'])) {
@@ -38,6 +42,20 @@ class Settings
             }
         }
 
+    }
+
+    /**
+     * @param $name
+     */
+    public function setName($name) {
+        $this->name = $name;
+    }
+
+    /**
+     * @return string
+     */
+    public function getName() {
+        return $this->name;
     }
 
     /**
@@ -80,11 +98,18 @@ class Settings
     }
 
     /**
+     *
+     */
+    public function removeAllSettings() {
+        $this->settings = [];
+    }
+
+    /**
      * @param $key
      */
     public function removeSetting($key) {
         if (!empty($this->settings[$key])) {
             unset($this->settings[$key]);
         }
-     }
+    }
 }
