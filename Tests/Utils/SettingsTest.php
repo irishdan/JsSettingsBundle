@@ -9,7 +9,8 @@ class SettingsTest extends PHPUnit_Framework_TestCase
 {
     private $settings;
 
-    public function __construct($name = null, array $data = array(), $dataName = '') {
+    public function __construct($name = null, array $data = array(), $dataName = '')
+    {
         parent::__construct($name, $data, $dataName);
         $defaults = [
             'object_name' => 'test_name',
@@ -18,6 +19,12 @@ class SettingsTest extends PHPUnit_Framework_TestCase
             ],
         ];
         $this->settings = new Settings($defaults);
+    }
+
+    public function testConstruct()
+    {
+        $defaults = $this->settings->getSettings();
+        $this->assertTrue(in_array('test', $defaults));
     }
 
     public function testConstructDefaults()
@@ -34,7 +41,11 @@ class SettingsTest extends PHPUnit_Framework_TestCase
 
     public function testGetSettings()
     {
-        $this->assertTrue(TRUE);
+        $settings = $this->settings->getSettings();
+        $this->assertEquals(
+            array('test' => 'test'),
+            $settings
+        );
     }
 
     public function testAddSettings()
@@ -42,7 +53,10 @@ class SettingsTest extends PHPUnit_Framework_TestCase
         $this->settings->addSettings('test_setting','test');
         $array = $this->settings->getSettings();
 
-        $this->assertTrue(in_array('test_setting', $array));
+        $this->assertEquals(
+            $array['test_setting'],
+            'test'
+        );
     }
 
     public function testSetName()
@@ -60,17 +74,17 @@ class SettingsTest extends PHPUnit_Framework_TestCase
         $js = $this->settings->getJs();
 
         $this->assertEquals(
-            '',
+            'var test_name = {};test_name.settings = {"test":"test"}',
             $js
         );
     }
 
     public function testRenderJs()
     {
-        $js = $this->settings->getJs();
+        $js = $this->settings->renderJs();
 
         $this->assertEquals(
-            '',
+            '<script>var test_name = {};test_name.settings = {"test":"test"}</script>',
             $js
         );
     }
