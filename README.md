@@ -37,7 +37,9 @@ class AppKernel extends Kernel
 
 Import the service definition in your config.yml file
 imports:
+```php
     - { resource: "@JsSettingsBundle/Resources/config/services.yml" }
+```
 
 3: Configuration
 ---------------------------
@@ -45,10 +47,12 @@ imports:
 No configuration is needed. Some is available.
 
 In you config.yml you can add:
+```php
 js_settings:
     object_name: 'Drupal'
     defaults:
         local: "%locale%"
+```
 
 object_name: By default the Javascript object it Called 'Symfony.settings'. You can change the use 'Drupal.settings', by usingthe configuration above
 
@@ -60,12 +64,18 @@ Default values can be added to the object by passingin key values pairs to the d
 The bundle provides a single service 'js_settings.settings'
 
 To add variables simple pass in a key, value pair, eg:
+```php
 $this->get('js_settings.settings')->addSettings('key', $values);
+```
 
 You need to print them in your templates. You can either include the provided controller in your template file, eg:
+```php
 {{ render(controller('JsSettingsBundle:Js:Settings')) }}
+```
 
 Or you can access pass them in ass a variable and print as you like:
+```php
 $settings = $this->get('js_settings.settings')->renderSettings();
+```
 
  
