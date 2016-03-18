@@ -75,7 +75,7 @@ You need to print them in your templates. You can either include the provided co
 
 Or you can access pass them and print as you like:
 ```php
-$settings = $this->get('js_settings.settings')->renderSettings();
+$settings = $this->get('js_settings.settings')->renderJs();
 ```
 
  

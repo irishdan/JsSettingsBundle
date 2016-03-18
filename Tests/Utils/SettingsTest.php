@@ -7,11 +7,9 @@ use JsSettingsBundle\Utils\Settings;
  */
 class SettingsTest extends PHPUnit_Framework_TestCase
 {
-    private $settings;
+    private $settings = null;
 
-    public function __construct($name = null, array $data = array(), $dataName = '')
-    {
-        parent::__construct($name, $data, $dataName);
+    public function setUp() {
         $defaults = [
             'object_name' => 'test_name',
             'defaults' => [
@@ -21,20 +19,17 @@ class SettingsTest extends PHPUnit_Framework_TestCase
         $this->settings = new Settings($defaults);
     }
 
+    public function tearDown() {
+        $this->settings = null;
+    }
+
     public function testConstruct()
     {
+        // Defaults were set correctly.
         $defaults = $this->settings->getSettings();
         $this->assertTrue(in_array('test', $defaults));
-    }
 
-    public function testConstructDefaults()
-    {
-        $defaults = $this->settings->getSettings();
-        $this->assertTrue(in_array('test', $defaults));
-    }
-
-    public function testConstructObjectName()
-    {
+        // Test name was set correctly.
         $name = $this->settings->getName();
         $this->assertEquals($name, 'test_name');
     }
