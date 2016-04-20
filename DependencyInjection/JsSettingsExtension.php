@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: danielbyrne
- * Date: 12/03/2016
- * Time: 14:06
- */
 
 namespace JsSettingsBundle\DependencyInjection;
 
