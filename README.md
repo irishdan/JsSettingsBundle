@@ -1,6 +1,7 @@
 # JsSettingsBundle
 
-This bundle adds Drupal.settings functionality to symfony projects. Its a simple way of passing variables from PHP to Javascript.
+This bundle adds Drupal.settings functionality to symfony projects. 
+Its a simple way of passing variables from PHP to Javascript.
 
 1: Installation
 ---------------------------
@@ -52,11 +53,13 @@ js_settings:
     object_name: 'Drupal'
     defaults:
         local: "%locale%"
+        page_data:
+            site: 'www.example.com'
 ```
 
-object_name: By default the Javascript object it Called 'Symfony.settings'. You can change the use 'Drupal.settings', by usingthe configuration above
+object_name: By default the Javascript object it Called 'Symfony.settings'. You can change the use 'Drupal.settings', by using the configuration above.
 
-Default values can be added to the object by passingin key values pairs to the defaults like above.  
+defaults: Default values are added to the javascript object by default and are always available. 
 
 4: Usage
 ---------------------------
