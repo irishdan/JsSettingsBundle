@@ -47,7 +47,7 @@ imports:
 
 No configuration is needed. Some is available.
 
-In you config.yml you can add:
+In config.yml you can add:
 ```php
 js_settings:
     object_name: 'Drupal'
@@ -66,17 +66,17 @@ defaults: Default values are added to the javascript object by default and are a
 
 The bundle provides a single service 'js_settings.settings'
 
-To add variables simple pass in a key value pair, eg:
+To add variables simple pass in a key value pair like so:
 ```php
 $this->get('js_settings.settings')->addSettings('key', $values);
 ```
 
-You need to print them in your templates. You can either include the provided controller in your template file, eg:
+You need to print the javascript object in your templates. You can either include the provided controller in your template file, eg:
 ```php
 {{ render(controller('JsSettingsBundle:Js:Settings')) }}
 ```
 
-Or you can access pass them and print as you like:
+Or you can get them form the 'js_settings.settings' service and print as you like:
 ```php
 $settings = $this->get('js_settings.settings')->renderJs();
 ```
