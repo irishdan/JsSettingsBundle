@@ -28,10 +28,8 @@ class AppKernel extends Kernel
 
             new JsSettingsBundle\JsSettingsBundle(),
         );
-
         // ...
     }
-
     // ...
 }
 ```
