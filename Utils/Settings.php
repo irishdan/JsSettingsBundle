@@ -1,13 +1,6 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Daniel Byrne
- * Date: 12/03/2016
- * Time: 09:17
- */
 
 namespace JsSettingsBundle\Utils;
-
 
 /**
  * Class Settings

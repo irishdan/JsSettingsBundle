@@ -1,4 +1,11 @@
 services:
-  js_settings.settings:
-      class: JsSettingsBundle\Utils\Settings
-      arguments: [ '%js_settings%' ]
+    js_settings.settings:
+        class: JsSettingsBundle\Utils\Settings
+        arguments: [ '%js_settings%' ]
+
+    js_settings.twig_extension:
+        class: JsSettingsBundle\Twig\JsSettingsExtension
+        public: false
+        arguments: [ '@js_settings.settings' ]
+        tags:
+            - { name: twig.extension }
