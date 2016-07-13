@@ -69,7 +69,12 @@ To add variables simple pass in a key value pair like so:
 $this->get('js_settings.settings')->addSettings('key', $values);
 ```
 
-You need to print the javascript object in your templates. You can either include the provided controller in your template file, eg:
+You need to print the javascript object in your templates. A twig extension is included for this, simple call the twig extension in your template file:
+```php
+{{ get_js_settings() }}
+```
+
+Or you can include the provided controller in your template file, eg:
 ```php
 {{ render(controller('JsSettingsBundle:Js:Settings')) }}
 ```

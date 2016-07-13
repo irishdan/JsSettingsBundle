@@ -31,7 +31,8 @@ class JsSettingsExtension extends \Twig_Extension
     public function getFunctions()
     {
         return array(
-            new \Twig_SimpleFunction('get_js_settings', array($this, 'getSettings')),
+            new \Twig_SimpleFunction('get_js_settings', [$this, 'getSettings'], [
+                'is_safe' => ['html']]),
         );
     }
 
