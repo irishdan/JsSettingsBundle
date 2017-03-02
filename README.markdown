@@ -5,7 +5,10 @@ This bundle provides a service and a twig extension for easily passing data from
 1: Installation
 ---------------------------
 
-Clone the repo to your src directory.
+Install with composer.
+```
+composer require irishdan/js-settings-bundle
+```
 
 Step 2: Enable the Bundle
 -------------------------
