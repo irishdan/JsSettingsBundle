@@ -7,6 +7,7 @@ use JsSettingsBundle\Utils\Settings;
 
 /**
  * Class JsSettingsExtension
+ *
  * @package JsSettingsBundle\Twig
  */
 class JsSettingsExtension extends \Twig_Extension
@@ -18,6 +19,7 @@ class JsSettingsExtension extends \Twig_Extension
 
     /**
      * JsSettingsExtension constructor.
+     *
      * @param Settings $settings
      */
     public function __construct(Settings $settings)
@@ -30,10 +32,10 @@ class JsSettingsExtension extends \Twig_Extension
      */
     public function getFunctions()
     {
-        return array(
+        return [
             new \Twig_SimpleFunction('get_js_settings', [$this, 'getSettings'], [
                 'is_safe' => ['html']]),
-        );
+        ];
     }
 
     /**

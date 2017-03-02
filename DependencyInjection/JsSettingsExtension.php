@@ -7,12 +7,13 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 
 /**
  * Class JsSettingsExtension
+ *
  * @package JsSettingsBundle\DependencyInjection
  */
 class JsSettingsExtension extends Extension
 {
     /**
-     * @param array $configs
+     * @param array            $configs
      * @param ContainerBuilder $container
      */
     public function load(array $configs, ContainerBuilder $container)
@@ -28,7 +29,7 @@ class JsSettingsExtension extends Extension
         $container->setParameter('js_settings', []);
         foreach (['defaults', 'object_name'] as $attribute) {
             if (empty($config[$attribute])) {
-                $config[$attribute] = NULL;
+                $config[$attribute] = null;
             }
         }
         $container->setParameter('js_settings', $config);

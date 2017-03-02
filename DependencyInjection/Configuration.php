@@ -8,6 +8,7 @@ use Symfony\Component\Config\Definition\ConfigurationInterface;
 
 /**
  * Class Configuration
+ *
  * @package JsSettingsBundle\DependencyInjection
  */
 class Configuration implements ConfigurationInterface
@@ -21,10 +22,9 @@ class Configuration implements ConfigurationInterface
         $rootNode = $treeBuilder->root('js_settings');
         $rootNode
             ->children()
-                ->scalarNode('object_name')->end()
-                ->variableNode('defaults')->end()
-            ->end()
-        ;
+            ->scalarNode('object_name')->end()
+            ->variableNode('defaults')->end()
+            ->end();
 
         return $treeBuilder;
     }
