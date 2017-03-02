@@ -1,0 +1,24 @@
+{
+    "name": "irishdan/js-settings-bundle",
+    "type": "symfony-bundle",
+    "description": "A bundle for injecting data as javascript into a page",
+    "keywords": [
+        "php",
+        "javascript",
+        "symfony",
+        "twig"
+    ],
+    "homepage": "https://github.com/irishdan/JsSettingsBundle",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Daniel Byrne",
+            "email": "danielbyrne@outlook.com",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": ">=5.5.0"
+    },
+    "minimum-stability": "stable"
+}

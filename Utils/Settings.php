@@ -7,6 +7,11 @@ namespace JsSettingsBundle\Utils;
  *
  * @package JsSettingsBundle\Utils
  */
+/**
+ * Class Settings
+ *
+ * @package JsSettingsBundle\Utils
+ */
 class Settings
 {
     /**
@@ -38,6 +43,14 @@ class Settings
         }
     }
 
+    /**
+     * Push data into arrays that may already exist.
+     *
+     * @param $group
+     * @param $key
+     * @param $data
+     * @return mixed
+     */
     public function pushSettings($group, $key, $data)
     {
         if (empty($this->settings[$group])) {
@@ -48,7 +61,6 @@ class Settings
             return $this->settings[$group][] = $data;
         }
 
-        // [ 'AlertMessages' , 'info']
         if (is_array($key)) {
             if (empty($this->settings[$group][$key[0]])) {
                 $this->settings[$group][$key[0]] = [];
@@ -76,6 +88,8 @@ class Settings
     }
 
     /**
+     * Add data to the JS array. Will override if already exists
+     *
      * @param $key
      * @param $value
      */
@@ -119,7 +133,7 @@ class Settings
     }
 
     /**
-     *
+     * Delete all of the data
      */
     public function removeAllSettings()
     {
