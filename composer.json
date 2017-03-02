@@ -18,7 +18,16 @@
         }
     ],
     "require": {
-        "php": ">=5.5.0"
+        "php": ">=5.5.0",
+        "symfony/framework-bundle": "^2.7 || ^3.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "IrishDan\\JsSettingsBundle\\": ""
+        },
+        "exclude-from-classmap": [
+            "/Tests/"
+        ]
     },
     "minimum-stability": "stable"
 }
