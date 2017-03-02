@@ -44,7 +44,7 @@ class Settings
     }
 
     /**
-     * Push data into arrays that may already exist.
+     * Push data into array that may already exist.
      *
      * @param $group
      * @param $key
