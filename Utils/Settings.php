@@ -1,6 +1,6 @@
 <?php
 
-namespace JsSettingsBundle\Utils;
+namespace IrishDan\JsSettingsBundle\Utils;
 
 /**
  * Class Settings

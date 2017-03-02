@@ -1,6 +1,6 @@
 <?php
 
-namespace JsSettingsBundle\DependencyInjection;
+namespace IrishDan\JsSettingsBundle\DependencyInjection;
 
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 use Symfony\Component\DependencyInjection\ContainerBuilder;

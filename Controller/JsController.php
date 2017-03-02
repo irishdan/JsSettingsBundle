@@ -1,6 +1,6 @@
 <?php
 
-namespace JsSettingsBundle\Controller;
+namespace IrishDan\JsSettingsBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 

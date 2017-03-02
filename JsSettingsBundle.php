@@ -1,6 +1,6 @@
 <?php
 
-namespace JsSettingsBundle;
+namespace IrishDan\JsSettingsBundle;
 
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 

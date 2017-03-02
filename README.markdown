@@ -27,8 +27,7 @@ class AppKernel extends Kernel
     {
         $bundles = array(
             // ...
-
-            new JsSettingsBundle\JsSettingsBundle(),
+            new IrishDan\JsSettingsBundle\JsSettingsBundle(),
         );
         // ...
     }

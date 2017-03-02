@@ -1,9 +1,8 @@
 <?php
 
-namespace JsSettingsBundle\Twig;
+namespace IrishDan\JsSettingsBundle\Twig;
 
-
-use JsSettingsBundle\Utils\Settings;
+use IrishDan\JsSettingsBundle\Utils\Settings;
 
 /**
  * Class JsSettingsExtension
