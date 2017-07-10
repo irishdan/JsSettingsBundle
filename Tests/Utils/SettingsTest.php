@@ -122,32 +122,18 @@ class SettingsTest extends PHPUnit_Framework_TestCase
 
     public function testPushData()
     {
-        $data = [
-            'an' => 'array',
-            'of' => [
-                'data',
-            ],
-        ];
+        $key   = '[first][second]';
+        $data1 = ['an' => 'array'];
+        $data2 = 'a_nice_string';
 
-        $this->settings->pushData('pushed_group', 'pushed1', $data);
-        $this->settings->pushData('pushed_group', 'pushed2', $data);
-        $this->settings->pushData('pushed_group', '', $data);
-        $this->settings->pushData('pushed_group', ['pushed3', 'key1'], $data);
-        $this->settings->pushData('pushed_group', ['pushed3', 'key2'], $data);
+        $this->settings->pushData($key, $data1);
+        $this->settings->pushData($key, $data2);
 
         $js = $this->settings->getSettings();
 
-        $this->assertArrayHasKey('pushed_group', $js);
-        $this->assertArrayHasKey('pushed1', $js['pushed_group']);
-        $this->assertArrayHasKey('pushed2', $js['pushed_group']);
-        $this->assertArrayHasKey(0, $js['pushed_group']);
-        $this->assertArrayHasKey('pushed3', $js['pushed_group']);
-
-        $this->assertEquals($data, $js['pushed_group']['pushed1']);
-        $this->assertEquals($data, $js['pushed_group']['pushed2']);
-        $this->assertEquals($data, $js['pushed_group'][0]);
-        $this->assertEquals($data, $js['pushed_group']['pushed3']['key1']);
-        $this->assertEquals($data, $js['pushed_group']['pushed3']['key2']);
+        $this->assertTrue(is_array($js['first']['second']));
+        $this->assertEquals(['an' => 'array'], $js['first']['second'][0]);
+        $this->assertEquals('a_nice_string', $js['first']['second'][1]);
     }
 
     public function testRemoveAllSettings()
