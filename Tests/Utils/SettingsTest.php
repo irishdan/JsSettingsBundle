@@ -1,6 +1,5 @@
 <?php
 
-
 /**
  * Class SettingsTest
  */
@@ -10,9 +9,9 @@ class SettingsTest extends PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        $defaults = [
+        $defaults       = [
             'object_name' => 'test_name',
-            'defaults' => [
+            'defaults'    => [
                 'test' => 'test',
             ],
         ];
@@ -44,9 +43,37 @@ class SettingsTest extends PHPUnit_Framework_TestCase
         );
     }
 
-    public function testAddSettings()
+    public function testKeyFormats()
     {
-        $this->settings->addSettings('test_setting', 'test');
+        $keyIndexNotation = '[first_key][last_key]';
+        $keyArray         = [
+            'first_key',
+            'last_key',
+        ];
+        $keyString        = 'string_key';
+
+        // Index notation
+        $this->settings->addData($keyIndexNotation, 'indexNotationData');
+        $result = $this->settings->getSettings();
+
+        $this->assertEquals('indexNotationData', $result['first_key']['last_key']);
+
+        // Array of keys
+        $this->settings->addData($keyArray, 'arrayKeyData');
+        $result = $this->settings->getSettings();
+
+        $this->assertEquals('arrayKeyData', $result['first_key']['last_key']);
+
+        // Simple string.
+        $this->settings->addData($keyString, 'stringKeyData');
+        $result = $this->settings->getSettings();
+
+        $this->assertEquals('stringKeyData', $result['string_key']);
+    }
+
+    public function testAddData()
+    {
+        $this->settings->addData('test_setting', 'test');
         $array = $this->settings->getSettings();
 
         $this->assertEquals(
@@ -90,10 +117,10 @@ class SettingsTest extends PHPUnit_Framework_TestCase
         $this->settings->removeSetting('test_setting');
         $array = $this->settings->getSettings();
 
-        $this->assertTrue(! in_array('test_setting', $array));
+        $this->assertTrue(!in_array('test_setting', $array));
     }
 
-    public function testPushSettings()
+    public function testPushData()
     {
         $data = [
             'an' => 'array',
@@ -102,11 +129,11 @@ class SettingsTest extends PHPUnit_Framework_TestCase
             ],
         ];
 
-        $this->settings->pushSettings('pushed_group', 'pushed1', $data);
-        $this->settings->pushSettings('pushed_group', 'pushed2', $data);
-        $this->settings->pushSettings('pushed_group', '', $data);
-        $this->settings->pushSettings('pushed_group', ['pushed3', 'key1'], $data);
-        $this->settings->pushSettings('pushed_group', ['pushed3', 'key2'], $data);
+        $this->settings->pushData('pushed_group', 'pushed1', $data);
+        $this->settings->pushData('pushed_group', 'pushed2', $data);
+        $this->settings->pushData('pushed_group', '', $data);
+        $this->settings->pushData('pushed_group', ['pushed3', 'key1'], $data);
+        $this->settings->pushData('pushed_group', ['pushed3', 'key2'], $data);
 
         $js = $this->settings->getSettings();
 
