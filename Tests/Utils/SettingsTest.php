@@ -1,6 +1,5 @@
 <?php
 
-use JsSettingsBundle\Utils\Settings;
 
 /**
  * Class SettingsTest
@@ -17,7 +16,7 @@ class SettingsTest extends PHPUnit_Framework_TestCase
                 'test' => 'test',
             ],
         ];
-        $this->settings = new Settings($defaults);
+        $this->settings = new \IrishDan\JsSettingsBundle\Utils\Settings($defaults);
     }
 
     public function tearDown()
