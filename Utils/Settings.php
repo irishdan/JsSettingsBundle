@@ -7,6 +7,8 @@ namespace IrishDan\JsSettingsBundle\Utils;
  *
  * @package JsSettingsBundle\Utils
  */
+use Symfony\Component\PropertyAccess\PropertyAccess;
+
 /**
  * Class Settings
  *
@@ -22,6 +24,7 @@ class Settings
      * @var string
      */
     private $name = 'Symfony';
+    private $propertyAccessor;
 
     /**
      * Settings constructor.
@@ -30,12 +33,12 @@ class Settings
      */
     public function __construct(array $defaults)
     {
-        if ( ! empty($defaults)) {
-            if ( ! empty($defaults['object_name'])) {
+        if (!empty($defaults)) {
+            if (!empty($defaults['object_name'])) {
                 $this->setName($defaults['object_name']);
             }
 
-            if ( ! empty($defaults['defaults'])) {
+            if (!empty($defaults['defaults'])) {
                 foreach ($defaults['defaults'] as $key => $value) {
                     $this->settings[$key] = $value;
                 }
@@ -44,31 +47,65 @@ class Settings
     }
 
     /**
-     * Push data into array that may already exist.
+     * Pushes data into array that may already exist.
      *
-     * @param $group
-     * @param $key
-     * @param $data
      * @return mixed
      */
-    public function pushSettings($group, $key, $data)
+    public function pushData($key, $data)
     {
-        if (empty($this->settings[$group])) {
-            $this->settings[$group] = [];
-        }
+        $key = $this->formatKey($key);
 
-        if (empty($key)) {
-            return $this->settings[$group][] = $data;
+        // Check data already exists
+        $currentData = $this->propertyAccessor->getValue($this->settings, $key);
+        if (empty($currentData)) {
+            $this->propertyAccessor->setValue($this->settings, $key, [$data]);
         }
-
-        if (is_array($key)) {
-            if (empty($this->settings[$group][$key[0]])) {
-                $this->settings[$group][$key[0]] = [];
+        else {
+            // If the data is an array, just push data into the array.
+            // if it's not make it into and array
+            if (is_array($currentData)) {
+                array_push($currentData, $data);
+                $this->propertyAccessor->setValue($this->settings, $key, $currentData);
             }
-            $this->settings[$group][$key[0]][$key[1]] = $data;
-        } else {
-            $this->settings[$group][$key] = $data;
+            else {
+                $this->propertyAccessor->setValue($this->settings, $key, [$currentData, $data]);
+            }
         }
+    }
+
+    /**
+     * Add data to the JS array. Will override if already exists
+     *
+     * @param $key
+     * @param $value
+     */
+    public function addData($key, $value)
+    {
+        $key = $this->formatKey($key);
+
+        // Just relpace the value if it exists.
+        $this->propertyAccessor->setValue($this->settings, $key, $value);
+    }
+
+    protected function formatKey($key)
+    {
+        if ($this->propertyAccessor === null) {
+            $this->propertyAccessor = PropertyAccess::createPropertyAccessor();
+        }
+
+        // If it's an array convert it to a string with index notation separators.
+        if (is_array($key)) {
+            $key = implode('][', $key);
+        }
+
+        // Check if key is index notation format.
+        // If its not index notation convert it.
+        $indexNotation = preg_match("/^(\[[a-zA-Z0-9_]*\])*$/", $key, $matches);
+        if (!$indexNotation) {
+            $key = '[' . $key . ']';
+        }
+
+        return $key;
     }
 
     /**
@@ -88,17 +125,6 @@ class Settings
     }
 
     /**
-     * Add data to the JS array. Will override if already exists
-     *
-     * @param $key
-     * @param $value
-     */
-    public function addSettings($key, $value)
-    {
-        $this->settings[$key] = $value;
-    }
-
-    /**
      * @return array
      */
     public function getSettings()
@@ -111,15 +137,16 @@ class Settings
      */
     public function getJs()
     {
-        $name = $this->name;
+        $name     = $this->name;
         $settings = json_encode($this->getSettings());
-        $js = 'var ' . $name . ' = {};' . $name . ' = ' . $settings;
+        $js       = 'var ' . $name . ' = {};' . $name . ' = ' . $settings;
 
         return $js;
     }
 
     /**
      * @param bool $script_tags
+     *
      * @return string
      */
     public function renderJs($script_tags = true)
@@ -145,7 +172,7 @@ class Settings
      */
     public function removeSetting($key)
     {
-        if ( ! empty($this->settings[$key])) {
+        if (!empty($this->settings[$key])) {
             unset($this->settings[$key]);
         }
     }
