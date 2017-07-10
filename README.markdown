@@ -1,6 +1,8 @@
 # JsSettingsBundle
 
-This bundle provides a service and a twig extension for easily passing data from backend to the front end.
+This bundle provides a service and a twig extension for easily injecting data into a webpage as a javascript object.
+
+[![Build Status](https://travis-ci.org/irishdan/JsSettingsBundle.svg?branch=master)](https://travis-ci.org/irishdan/JsSettingsBundle)
 
 1: Installation
 ---------------------------
@@ -63,27 +65,33 @@ defaults: Default values are added to the javascript object by default and are a
 4: Usage
 ---------------------------
 
-The bundle provides a single service 'js_settings.settings'. Using this service settings can can created, removed and accessed.
+The bundle provides a single service 'js_settings.settings' to add data and remove data from the javascript object.
 
 To add variables simple pass in a key value pair like so:
 ```php
-$this->get('js_settings.settings')->addSettings('key', $values);
+// The key can be a string...
+$this->get('js_settings.settings')->addData('key', $values);
+
+// The key can be an array...
+$this->get('js_settings.settings')->addData(['first_key', 'second_key'], $values);
+
+// The key can be index notation
+$this->get('js_settings.settings')->addData('[first_key][second_key]', $values);
+
 ```
 
-You need to print the javascript object in your templates. A twig extension is included for this, simple call the twig extension in your template file:
+Or, use pushData to push the data into an array.
+
+```php
+$this->get('js_settings.settings')->pushData('[first_key][second_key]', $values);
+```
+
+To inject the javascript object into the page, simply add the following twig function to your twig template
+
 ```php
 {{ get_js_settings() }}
 ```
 
-Or you can include the provided controller in your template file, eg:
-```php
-{{ render(controller('JsSettingsBundle:Js:Settings')) }}
-```
 
-Or you can get them form the 'js_settings.settings' service and print as you like:
-
-```php
-$settings = $this->get('js_settings.settings')->renderJs();
-```
 
  
