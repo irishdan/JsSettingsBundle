@@ -32,17 +32,26 @@ class JsSettingsExtension extends \Twig_Extension
     public function getFunctions()
     {
         return [
-            new \Twig_SimpleFunction('get_js_settings', [$this, 'getSettings'], [
-                'is_safe' => ['html']]),
+            new \Twig_SimpleFunction(
+                'get_js_settings', [$this, 'getSettings'], [
+                    'is_safe'           => ['html'],
+                    'needs_environment' => true,
+                ]
+            ),
         ];
     }
 
     /**
      * @return string
      */
-    public function getSettings()
+    public function getSettings(\Twig_Environment $environment)
     {
-        return $this->settings->renderJs();
+        return $environment->render(
+            'JsSettingsBundle::settings.script.html.twig',
+            [
+                'settings' => $this->settings->renderJs(),
+            ]
+        );
     }
 
     /**
