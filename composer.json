@@ -18,9 +18,9 @@
         }
     ],
     "require": {
-        "php": ">=5.5.0",
-        "symfony/framework-bundle": "^2.7 || ^3.0",
-        "symfony/property-access": "3.3.*"
+        "php": ">=7.1",
+        "symfony/framework-bundle": "~3.0|~4.0",
+        "symfony/property-access": "~3.4|~4.0",
     },
     "autoload": {
         "psr-4": {
